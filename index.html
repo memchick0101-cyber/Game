@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#160d07">
+<meta name="description" content="Автономный симулятор жизни в мире Шести Лиц.">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<title>Life in the Six-Faced World</title>
+<style>
+:root{color-scheme:dark;--bg:#100904;--panel:#24160d;--panel2:#301d10;--line:#89551d;--gold:#ffc04b;--text:#f0dfc5;--muted:#b69b78;--red:#d46a5d;--blue:#76aee8;--green:#7fc58b}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at top,#2b190b 0,#100904 58%);color:var(--text);font:15px Georgia,serif;padding:env(safe-area-inset-top) 0 env(safe-area-inset-bottom)}
+button,input,select{font:inherit}button{color:var(--text);background:linear-gradient(#4a2b11,#211309);border:1px solid var(--line);border-radius:10px;padding:11px 12px;min-height:43px;cursor:pointer}button:active{transform:scale(.985)}button:disabled{opacity:.35;cursor:not-allowed}.primary{border-color:var(--gold);color:var(--gold);font-weight:bold}.app{max-width:850px;margin:auto;padding:12px 12px 28px}.top{display:flex;justify-content:space-between;align-items:center;gap:10px;margin:4px 0 12px}.brand{font-size:12px;color:var(--muted);letter-spacing:.12em}.title{font-size:22px;color:var(--gold);font-weight:bold;margin-top:3px}.card{background:linear-gradient(145deg,#2c1b10,#1b1009);border:1px solid var(--line);border-radius:13px;padding:13px;margin:10px 0;box-shadow:inset 0 1px #ffffff08}.hero{border:2px solid #a66c22}.row{display:flex;justify-content:space-between;align-items:center;gap:8px}.muted{color:var(--muted)}.gold{color:var(--gold)}.small{font-size:12px}.big{font-size:25px;color:var(--gold)}h2{font-size:19px;color:var(--gold);margin:0 0 11px}h3{font-size:16px;color:var(--gold);margin:4px 0 9px}.bar{height:9px;background:#0d0805;border-radius:9px;overflow:hidden;margin-top:4px}.bar i{display:block;height:100%;background:var(--gold);border-radius:9px}.vitals{display:grid;grid-template-columns:1fr 1fr;gap:10px}.tabs{display:flex;overflow:auto;gap:6px;padding:4px 0 8px;position:sticky;top:0;background:#100904ed;z-index:3}.tabs button{white-space:nowrap;padding:8px 11px;min-height:38px;font-size:13px}.tabs .active{border-color:var(--gold);background:#68400f;color:#fff0c7}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.stat{background:#321f12;border:1px solid #684319;border-radius:9px;padding:9px;min-width:0}.stat span{display:block;font-size:12px;color:var(--muted)}.stat b{display:block;color:var(--gold);font-size:19px;margin-top:4px;overflow-wrap:anywhere}.activity-group{margin:13px 0}.activity-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}.activity-grid button{font-size:13px;text-align:left}.log{padding:8px 0;border-bottom:1px solid #563719;font-size:13px;line-height:1.35}.pill{display:inline-block;border:1px solid #89551d;border-radius:20px;padding:5px 9px;margin:3px;font-size:12px;color:var(--gold)}.hidden{display:none!important}input,select{width:100%;background:#110a06;border:1px solid var(--line);border-radius:8px;padding:11px;color:var(--text);margin:5px 0 10px}.two{display:grid;grid-template-columns:1fr 1fr;gap:8px}.notice{border:1px solid #8a5d23;background:#3a260f;padding:10px;border-radius:9px;font-size:13px;line-height:1.4}.footer{text-align:center;color:#8e765b;font-size:11px;margin:18px 0}.actionline{display:flex;justify-content:space-between;gap:8px;align-items:center}.danger{color:#e78c80;border-color:#854139}
+@media(min-width:650px){.vitals{grid-template-columns:repeat(4,1fr)}.activity-grid{grid-template-columns:repeat(3,1fr)}.grid{grid-template-columns:repeat(3,1fr)}}
+</style>
+</head>
+<body>
+<div class="app">
+<header class="top"><div><div class="brand">МИР ШЕСТИ ЛИЦ · LIFE SIMULATOR</div><div class="title">✦ Твоя новая жизнь</div></div><button id="saveBtn">💾 Сохранить</button></header>
+<section class="card hero">
+ <div class="row"><strong class="gold" id="heroName">Аэлин Эмберглейд</strong><span class="gold" id="gold">💰 120</span></div>
+ <div class="small muted" id="identity">Эльф · Женщина · 1 год · Раннее детство</div>
+ <div class="row small" style="margin-top:8px"><span id="place">Центральный континент</span><span id="fame">Новичок · Жизнь #1</span></div>
+</section>
+<section class="card">
+ <div class="row"><div><span class="big" id="age">1</span> <span class="muted">лет · <span id="stage">Раннее детство</span></span></div><div class="small gold" id="date">1445 год · Весна</div></div>
+ <div class="row small" style="margin-top:10px"><span>Действия на этот год</span><b class="gold" id="actionCount">4 / 4</b></div><div class="bar"><i id="actionBar" style="width:100%"></i></div>
+ <button class="primary" id="ageBtn" style="width:100%;margin-top:10px">ПЕРЕЙТИ К СЛЕДУЮЩЕМУ ГОДУ ▶</button>
+</section>
+<nav class="tabs" id="tabs">
+ <button class="active" data-tab="life">Жизнь</button><button data-tab="stats">Характеристики</button><button data-tab="people">Люди</button><button data-tab="world">Мир</button><button data-tab="story">История</button><button data-tab="settings">Сохранения</button>
+</nav>
+<main>
+<section id="life">
+ <div class="card"><h2>Состояние</h2><div class="vitals" id="vitals"></div></div>
+ <div class="card"><h2>Чем займёшься в этом году?</h2><div id="activities"></div></div>
+ <div class="card"><h2>Последние события</h2><div id="recentLog"></div></div>
+</section>
+<section id="stats" class="hidden">
+ <div class="card"><h2>Основные характеристики</h2><div class="grid" id="statsGrid"></div></div>
+ <div class="card"><h2>Навыки</h2><div id="skills"></div></div>
+ <div class="card"><h2>Особенности персонажа</h2><div id="traits"></div></div>
+ <div class="card"><h2>Боевые и магические ранги</h2><div id="ranks"></div></div>
+</section>
+<section id="people" class="hidden">
+ <div class="card"><h2>Окружение</h2><p class="muted small">Люди появляются по мере взросления, общения и путешествий. Отношения меняются со временем.</p><div id="npcList"></div><button id="meetBtn" style="width:100%;margin-top:9px">＋ Познакомиться с человеком</button></div>
+ <div class="card"><h2>Отношения и семья</h2><div id="relationshipInfo"></div><div class="activity-grid" style="margin-top:10px"><button data-act="friends">👥 Провести время с друзьями</button><button data-act="family">🏡 Время с семьёй</button><button data-act="romance">💞 Развивать отношения</button><button data-act="network">🤝 Завести полезные связи</button></div></div>
+</section>
+<section id="world" class="hidden">
+ <div class="card"><h2>Мир Шести Лиц</h2><p class="muted small">Локации и события открываются постепенно. Это фанатская интерпретация мира, неофициальная игра.</p><div id="locations"></div><div class="activity-grid" style="margin-top:10px"><button data-act="explore">🧭 Исследовать окрестности</button><button data-act="travel">🌍 Путешествовать</button><button data-act="herbs">🌿 Собирать травы</button><button data-act="court">👑 Посетить двор</button></div></div>
+ <div class="card"><h2>Мировые события</h2><div id="worldEvents"></div></div>
+</section>
+<section id="story" class="hidden">
+ <div class="card"><h2>Цели жизни</h2><div id="goals"></div><div class="two"><input id="goalInput" placeholder="Новая цель"><button id="addGoal">Добавить цель</button></div></div>
+ <div class="card"><h2>Достижения</h2><div id="achievements"></div></div>
+ <div class="card"><h2>Воспоминания</h2><div id="memories"></div></div>
+ <div class="card"><h2>Наследие</h2><p id="legacy" class="muted"></p></div>
+</section>
+<section id="settings" class="hidden">
+ <div class="card"><h2>Персонаж</h2><label class="small muted">Имя</label><input id="nameInput" maxlength="28"><label class="small muted">Раса</label><select id="raceInput"><option>Человек</option><option>Эльф</option><option>Демон</option><option>Зверолюд</option><option>Дварф</option></select><label class="small muted">Пол</label><select id="genderInput"><option>Женщина</option><option>Мужчина</option></select><button id="applyChar" style="width:100%">Применить изменения</button></div>
+ <div class="card"><h2>Управление сохранениями</h2><p class="muted small">Автосохранение работает на этом устройстве в браузере. Экспорт создаёт файл резервной копии, который можно перенести на другой телефон.</p><div class="two"><button id="exportBtn">Экспорт сохранения</button><button id="importBtn">Импорт сохранения</button></div><input type="file" id="importFile" accept="application/json" class="hidden"><button id="resetBtn" class="danger" style="width:100%;margin-top:8px">Начать новую жизнь</button></div>
+ <div class="notice">Офлайн-режим: после установки на экран «Домой» и первого успешного открытия с интернетом игра кэширует необходимые файлы. Не удаляй данные Safari, если хочешь сохранить локальный прогресс. Для надёжности периодически экспортируй сохранение.</div>
+</section>
+</main>
+<div id="toast" class="notice hidden" role="status" style="position:sticky;bottom:8px"></div>
+<div class="footer">Фанатский проект · Не связан с правообладателями Mushoku Tensei</div>
+</div>
+<script src="game.js"></script>
+</body></html>

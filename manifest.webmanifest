@@ -1,0 +1,19 @@
+{
+  "name": "Life in the Six-Faced World",
+  "short_name": "Six-Faced Life",
+  "description": "Автономный фанатский симулятор жизни в мире Mushoku Tensei",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#100904",
+  "theme_color": "#160d07",
+  "icons": [
+    {
+      "src": "icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
